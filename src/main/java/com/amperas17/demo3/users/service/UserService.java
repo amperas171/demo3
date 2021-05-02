@@ -1,43 +1,42 @@
-package com.amperas17.demo3.service;
+package com.amperas17.demo3.users.service;
 
-import com.amperas17.demo3.data.Client;
+import com.amperas17.demo3.users.data.UserEntity;
 
 import java.util.List;
 
-public interface ClientService {
+public interface UserService {
 
     /**
      * Создает нового клиента
-     * @param client - клиент для создания
+     * @param userEntity - клиент для создания
      */
-    void create(Client client);
+    void create(UserEntity userEntity);
 
     /**
      * Возвращает список всех имеющихся клиентов
      * @return список клиентов
      */
-    List<Client> readAll();
+    List<UserEntity> readAll();
 
     /**
      * Возвращает клиента по его ID
      * @param id - ID клиента
      * @return - объект клиента с заданным ID
      */
-    Client read(int id);
+    UserEntity read(int id);
 
     /**
      * Обновляет клиента с заданным ID,
      * в соответствии с переданным клиентом
-     * @param client - клиент в соответсвии с которым нужно обновить данные
+     * @param userEntity - клиент в соответсвии с которым нужно обновить данные
      * @param id - id клиента которого нужно обновить
      * @return - true если данные были обновлены, иначе false
      */
-    boolean update(Client client, int id);
+    UserEntity update(UserEntity userEntity, int id);
 
     /**
      * Удаляет клиента с заданным ID
      * @param id - id клиента, которого нужно удалить
-     * @return - true если клиент был удален, иначе false
      */
     boolean delete(int id);
 }

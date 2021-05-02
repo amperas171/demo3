@@ -1,6 +1,6 @@
-package com.amperas17.demo3.service;
+package com.amperas17.demo3.clients.service;
 
-import com.amperas17.demo3.data.Client;
+import com.amperas17.demo3.clients.data.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

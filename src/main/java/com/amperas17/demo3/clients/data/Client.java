@@ -1,4 +1,4 @@
-package com.amperas17.demo3.data;
+package com.amperas17.demo3.clients.data;
 
 public class Client {
 
