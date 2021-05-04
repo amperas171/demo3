@@ -1,6 +1,7 @@
 package com.amperas17.demo3.users.service;
 
-import com.amperas17.demo3.users.data.UserEntity;
+import com.amperas17.demo3.users.data.UserCreds;
+import com.amperas17.demo3.users.data.UserCredsEntity;
 import com.amperas17.demo3.users.data.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,30 +18,29 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void create(UserEntity userEntity) {
+    public void create(UserCredsEntity userEntity) {
         userRepository.save(userEntity);
     }
 
     @Override
-    public List<UserEntity> readAll() {
-        List<UserEntity> userEntities = new ArrayList<>();
-        for (UserEntity userEntity : userRepository.findAll()) {
+    public List<UserCredsEntity> readAll() {
+        List<UserCredsEntity> userEntities = new ArrayList<>();
+        for (UserCredsEntity userEntity : userRepository.findAll()) {
             userEntities.add(userEntity);
         }
         return userEntities;
     }
 
     @Override
-    public UserEntity read(int id) {
-        if (userRepository.findById(id).isPresent()) {
-            return userRepository.findById(id).get();
-        } else {
-            return null;
-        }
+    public UserCredsEntity findByCreds(UserCreds userCreds) {
+        List<UserCredsEntity> userCredsEntities = userRepository.findByCreds(userCreds.getLogin(), userCreds.getPassword());
+        return userCredsEntities.isEmpty()
+                ? null
+                : userCredsEntities.get(0);
     }
 
     @Override
-    public UserEntity update(UserEntity userEntity, int id) {
+    public UserCredsEntity update(UserCredsEntity userEntity, int id) {
         return userRepository.save(userEntity);
     }
 

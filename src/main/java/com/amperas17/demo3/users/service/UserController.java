@@ -1,6 +1,8 @@
 package com.amperas17.demo3.users.service;
 
-import com.amperas17.demo3.users.data.UserEntity;
+import com.amperas17.demo3.users.data.User;
+import com.amperas17.demo3.users.data.UserCreds;
+import com.amperas17.demo3.users.data.UserCredsEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,33 +20,36 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping(value = "/users")
-    public ResponseEntity<?> create(@RequestBody UserEntity user) {
+    @PostMapping(value = "/users/create")
+    public ResponseEntity<?> create(@RequestBody UserCredsEntity user) {
         userService.create(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/users")
-    public ResponseEntity<List<UserEntity>> read() {
-        final List<UserEntity> users = userService.readAll();
+    public ResponseEntity<List<UserCredsEntity>> read() {
+        final List<UserCredsEntity> users = userService.readAll();
 
-        return users != null &&  !users.isEmpty()
+        return users != null && !users.isEmpty()
                 ? new ResponseEntity<>(users, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping(value = "/users/{id}")
-    public ResponseEntity<UserEntity> read(@PathVariable(name = "id") int id) {
-        final UserEntity user = userService.read(id);
+    @PostMapping(value = "/users/login")
+    public ResponseEntity<User> login(@RequestBody UserCreds userCreds) {
+        final UserCredsEntity uce = userService.findByCreds(userCreds);
 
-        return user != null
-                ? new ResponseEntity<>(user, HttpStatus.OK)
+        return uce != null
+                ? new ResponseEntity<>(
+                new User(uce.getId(), uce.getName(), uce.getSurname(), uce.getEmail(), uce.getPhone()),
+                HttpStatus.OK
+        )
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PutMapping(value = "/users/{id}")
-    public ResponseEntity<?> update(@PathVariable(name = "id") int id, @RequestBody UserEntity user) {
-        final UserEntity userUpdated = userService.update(user, id);
+    public ResponseEntity<?> update(@PathVariable(name = "id") int id, @RequestBody UserCredsEntity user) {
+        final UserCredsEntity userUpdated = userService.update(user, id);
 
         return user != null
                 ? new ResponseEntity<>(HttpStatus.OK)
