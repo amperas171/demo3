@@ -9,4 +9,7 @@ public interface UserRepository extends CrudRepository<UserCredsEntity, Integer>
 
     @Query("select u from UserCredsEntity u where u.login = ?1 and u.password = ?2")
     List<UserCredsEntity> findByCreds(String login, String password);
+
+    @Query("select u from UserCredsEntity u where u.login = ?1")
+    List<UserCredsEntity> findByLogin(String login);
 }

@@ -3,18 +3,25 @@ package com.amperas17.demo3.users.data;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Table(name = "users")
 public class UserCredsEntity {
 
-    @Id // Сообщяем ORM что это поле - Primary Key
-    @JsonProperty("id")
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO) //- для MySql и для постгре на хероку
+    //@Id // Сообщяем ORM что это поле - Primary Key
+    //@JsonProperty("id")
+   // @Column(name = "id")
+    //@GeneratedValue(strategy = GenerationType.IDENTITY) //- для MySql и для постгре на хероку
     //@SequenceGenerator(name = "usersIdSeq", sequenceName = "users_seq", allocationSize = 1)
     //@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usersIdSeq")
-    private Integer id = 0;
+    //private Integer id = 0;
+
+    @Id
+    @JsonProperty("uuid")
+    @Column(name = "uuid")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID uuid;
 
     @JsonProperty("login")
     @Column(name = "login", length = 25)
@@ -99,11 +106,11 @@ public class UserCredsEntity {
         this.phone = phone;
     }
 
-    public Integer getId() {
-        return id;
+    public UUID getUuid() {
+        return uuid;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
     }
 }

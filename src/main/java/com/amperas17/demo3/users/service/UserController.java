@@ -22,8 +22,9 @@ public class UserController {
 
     @PostMapping(value = "/users/create")
     public ResponseEntity<?> create(@RequestBody UserCredsEntity user) {
-        userService.create(user);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return userService.create(user)
+                ? new ResponseEntity<>(HttpStatus.CREATED)
+                : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }
 
     @GetMapping(value = "/users")
@@ -41,24 +42,24 @@ public class UserController {
 
         return uce != null
                 ? new ResponseEntity<>(
-                new User(uce.getId(), uce.getName(), uce.getSurname(), uce.getEmail(), uce.getPhone()),
+                new User(uce.getUuid(), uce.getName(), uce.getSurname(), uce.getEmail(), uce.getPhone()),
                 HttpStatus.OK
         )
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PutMapping(value = "/users/{id}")
-    public ResponseEntity<?> update(@PathVariable(name = "id") int id, @RequestBody UserCredsEntity user) {
-        final UserCredsEntity userUpdated = userService.update(user, id);
+    @PutMapping(value = "/users/{uuid}")
+    public ResponseEntity<?> update(@PathVariable(name = "uuid") int uuid, @RequestBody UserCredsEntity user) {
+        final UserCredsEntity userUpdated = userService.update(user, uuid);
 
         return user != null
                 ? new ResponseEntity<>(HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }
 
-    @DeleteMapping(value = "/users/{id}")
-    public ResponseEntity<?> delete(@PathVariable(name = "id") int id) {
-        final boolean deleted = userService.delete(id);
+    @DeleteMapping(value = "/users/{uuid}")
+    public ResponseEntity<?> delete(@PathVariable(name = "uuid") int uuid) {
+        final boolean deleted = userService.delete(uuid);
 
         return deleted
                 ? new ResponseEntity<>(HttpStatus.OK)

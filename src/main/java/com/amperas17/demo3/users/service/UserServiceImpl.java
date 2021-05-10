@@ -18,8 +18,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void create(UserCredsEntity userEntity) {
-        userRepository.save(userEntity);
+    public boolean create(UserCredsEntity creds) {
+        List<UserCredsEntity> users = userRepository.findByLogin(creds.getLogin());
+        if (users.isEmpty()) {
+            userRepository.save(creds);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
