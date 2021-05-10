@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 public class UserController {
@@ -27,7 +28,8 @@ public class UserController {
                 : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }
 
-    @GetMapping(value = "/users")
+    // TODO delete before release
+    @GetMapping(value = "/users/getAll")
     public ResponseEntity<List<UserCredsEntity>> read() {
         final List<UserCredsEntity> users = userService.readAll();
 
@@ -48,17 +50,17 @@ public class UserController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PutMapping(value = "/users/{uuid}")
-    public ResponseEntity<?> update(@PathVariable(name = "uuid") int uuid, @RequestBody UserCredsEntity user) {
-        final UserCredsEntity userUpdated = userService.update(user, uuid);
+    @PutMapping(value = "/users/update")
+    public ResponseEntity<?> update(@RequestBody UserCredsEntity user) {
+        final UserCredsEntity userUpdated = userService.update(user);
 
         return user != null
                 ? new ResponseEntity<>(HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }
 
-    @DeleteMapping(value = "/users/{uuid}")
-    public ResponseEntity<?> delete(@PathVariable(name = "uuid") int uuid) {
+    @DeleteMapping(value = "/users/delete/{uuid}")
+    public ResponseEntity<?> delete(@PathVariable(name = "uuid") UUID uuid) {
         final boolean deleted = userService.delete(uuid);
 
         return deleted

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -46,13 +47,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserCredsEntity update(UserCredsEntity userEntity, int id) {
+    public UserCredsEntity update(UserCredsEntity userEntity) {
         return userRepository.save(userEntity);
     }
 
     @Override
-    public boolean delete(int id) {
-        userRepository.deleteById(id);
-        return !userRepository.existsById(id);
+    public boolean delete(UUID uuid) {
+        userRepository.deleteById(uuid);
+        return !userRepository.existsById(uuid);
     }
 }

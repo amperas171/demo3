@@ -5,6 +5,7 @@ import com.amperas17.demo3.users.data.UserCredsEntity;
 import org.springframework.lang.Nullable;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface UserService {
 
@@ -15,7 +16,7 @@ public interface UserService {
     @Nullable
     UserCredsEntity findByCreds(UserCreds userCreds);
 
-    UserCredsEntity update(UserCredsEntity userEntity, int id);
+    UserCredsEntity update(UserCredsEntity userEntity);
 
-    boolean delete(int id);
+    boolean delete(UUID uuid);
 }
