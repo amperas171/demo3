@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 public interface SubtaskRepository extends CrudRepository<SubtaskEntity, Integer> {
 
     @Query("select u from SubtaskEntity u where u.id = ?1")
-    SubtaskEntity findByID(int id);
+    SubtaskEntity findByID(long id);
 }
