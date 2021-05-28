@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 public interface TaskRepository extends CrudRepository<TaskEntity, Integer> {
 
     @Query("select u from TaskEntity u where u.id = ?1")
-    TaskEntity findByID(int id);
+    TaskEntity findByID(long id);
 }

@@ -71,4 +71,12 @@ public class TaskEntity {
     public void addSubtask(SubtaskEntity subtask) {
         subtasks.add(subtask);
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }
