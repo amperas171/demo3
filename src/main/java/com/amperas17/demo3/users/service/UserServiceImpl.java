@@ -139,14 +139,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void editSubtask(SubtaskEntity newSubtask) {
-        int subtaskId = newSubtask.getId();
+        subtaskRepository.updateNameByID(newSubtask.getId(), newSubtask.getName());
+        /*int subtaskId = newSubtask.getId();
         SubtaskEntity oldSubtask = subtaskRepository.findByID(subtaskId);
         int taskId = oldSubtask.getTaskEntity().getId();
         TaskEntity taskEntity = taskRepository.findByID(taskId);
         taskEntity.addSubtask(newSubtask);
         newSubtask.setTaskEntity(taskEntity);
         subtaskRepository.save(newSubtask);
-        taskRepository.save(taskEntity);
+        taskRepository.save(taskEntity);*/
     }
 
     @Override
