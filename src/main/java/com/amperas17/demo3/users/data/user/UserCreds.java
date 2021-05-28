@@ -1,4 +1,4 @@
-package com.amperas17.demo3.users.data;
+package com.amperas17.demo3.users.data.user;
 
 public class UserCreds {
 

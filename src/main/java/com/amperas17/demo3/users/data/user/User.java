@@ -1,16 +1,14 @@
-package com.amperas17.demo3.users.data;
-
-import java.util.UUID;
+package com.amperas17.demo3.users.data.user;
 
 public class User {
 
-    private UUID id;
+    private int id;
     private String name;
     private String surname;
     private String email;
     private String phone;
 
-    public User(UUID id, String name, String surname, String email, String phone) {
+    public User(int id, String name, String surname, String email, String phone) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -18,11 +16,11 @@ public class User {
         this.phone = phone;
     }
 
-    public UUID getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(int id) {
         this.id = id;
     }
 
