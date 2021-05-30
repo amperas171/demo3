@@ -44,7 +44,7 @@ public class TaskEntity {
     @ManyToMany(mappedBy = "tasks")
     private Set<UserCredsEntity> users;
 
-    @OneToMany(mappedBy = "task", cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<SubtaskEntity> subtasks;
 
     public TaskEntity() {

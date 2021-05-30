@@ -60,7 +60,7 @@ public class UserCredsEntity {
     @Column(name = "phone", length = 25)
     private String phone;
 
-    @ManyToMany(cascade = CascadeType.DETACH)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "users_tasks", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "task_id", referencedColumnName = "id"))
     private Set<TaskEntity> tasks;
