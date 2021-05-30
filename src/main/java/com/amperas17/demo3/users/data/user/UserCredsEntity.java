@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "users")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class UserCredsEntity {
 
     //@Id // Сообщяем ORM что это поле - Primary Key
