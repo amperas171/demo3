@@ -116,12 +116,12 @@ public class UserController {
     }
 
     @GetMapping(value = "/users/{userId}/getTasks")
-    public List<TaskEntity> getAllUsersTasks(int userId) {
+    public List<TaskEntity> getAllUsersTasks(@PathVariable(name = "userId") int userId) {
         return userService.getAllUsersTasks(userId);
     }
 
     @GetMapping(value = "/users/{userId}/getTasks/{timestamp}")
-    public List<TaskEntity> getUsersTasksByDate(int userId, long timestamp) {
+    public List<TaskEntity> getUsersTasksByDate(@PathVariable(name = "userId") int userId, @PathVariable(name = "timestamp") long timestamp) {
         return userService.getUsersTasksByDate(userId, timestamp);
     }
 
