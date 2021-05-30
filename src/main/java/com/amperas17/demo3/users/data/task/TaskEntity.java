@@ -43,7 +43,7 @@ public class TaskEntity {
     @Column(name = "timestamp")
     private long timestamp;
 
-    @JsonIgnore
+    //@JsonIgnore
     @ManyToMany(mappedBy = "tasks")
     private Set<UserCredsEntity> users;
 
