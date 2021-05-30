@@ -128,13 +128,13 @@ public class UserServiceImpl implements UserService {
         taskRepository.save(task);
     }
 
-    @Transactional
+    //@Transactional
     @Override
     public boolean deleteTask(int id) {
-        TaskEntity t = taskRepository.findByID(id);
+        /*TaskEntity t = taskRepository.findByID(id);
         t.getUsers().clear();
-        taskRepository.save(t);
-        taskRepository.deleteById(id);
+        taskRepository.save(t);*/
+        taskRepository.deleteTaskByID(id);
         return taskRepository.findByID(id) == null;
     }
 

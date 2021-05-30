@@ -1,7 +1,9 @@
 package com.amperas17.demo3.users.data.user;
 
 import com.amperas17.demo3.users.data.task.TaskEntity;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,7 +13,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "users")
-//@IdClass(UserId.class)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class UserCredsEntity {
 
     //@Id // Сообщяем ORM что это поле - Primary Key
