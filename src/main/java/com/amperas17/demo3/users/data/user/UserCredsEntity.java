@@ -2,6 +2,7 @@ package com.amperas17.demo3.users.data.user;
 
 import com.amperas17.demo3.users.data.task.TaskEntity;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -61,6 +62,7 @@ public class UserCredsEntity {
     @Column(name = "phone", length = 25)
     private String phone;
 
+    @JsonIgnoreProperties("users")
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "users_tasks", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "task_id", referencedColumnName = "id"))

@@ -2,10 +2,7 @@ package com.amperas17.demo3.users.data.task;
 
 import com.amperas17.demo3.users.data.subtask.SubtaskEntity;
 import com.amperas17.demo3.users.data.user.UserCredsEntity;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -44,6 +41,7 @@ public class TaskEntity {
     private long timestamp;
 
     //@JsonIgnore
+    @JsonIgnoreProperties("tasks")
     @ManyToMany(mappedBy = "tasks")
     private Set<UserCredsEntity> users;
 
