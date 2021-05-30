@@ -108,7 +108,7 @@ public class UserController {
     // TODO delete before release
     @GetMapping(value = "/tasks/getAll")
     public ResponseEntity<List<TaskEntity>> getTasks() {
-        final List<TaskEntity> tasks = userService.readAllTasks();
+        final List<TaskEntity> tasks = userService.getAllTasks();
 
         return tasks != null && !tasks.isEmpty()
                 ? new ResponseEntity<>(tasks, HttpStatus.OK)
@@ -116,8 +116,13 @@ public class UserController {
     }
 
     @GetMapping(value = "/users/{userId}/getTasks")
-    public List<TaskEntity> readAllUsersTasks(int userId) {
-        return userService.readAllUsersTasks(userId);
+    public List<TaskEntity> getAllUsersTasks(int userId) {
+        return userService.getAllUsersTasks(userId);
+    }
+
+    @GetMapping(value = "/users/{userId}/getTasks/{timestamp}")
+    public List<TaskEntity> getUsersTasksByDate(int userId, long timestamp) {
+        return userService.getUsersTasksByDate(userId, timestamp);
     }
 
     @PostMapping(value = "/tasks/addSubtask/{id}")

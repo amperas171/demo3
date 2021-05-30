@@ -27,9 +27,11 @@ public interface UserService {
 
     void addTask(TaskEntity task, int userId);
 
-    List<TaskEntity> readAllTasks();
+    List<TaskEntity> getAllTasks();
 
-    List<TaskEntity> readAllUsersTasks(int userId);
+    List<TaskEntity> getAllUsersTasks(int userId);
+
+    List<TaskEntity> getUsersTasksByDate(int userId, long timestamp);
 
     void editTask(TaskEntity task);
 

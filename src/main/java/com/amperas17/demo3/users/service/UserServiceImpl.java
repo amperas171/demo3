@@ -10,10 +10,8 @@ import com.amperas17.demo3.users.data.user.UserCredsEntity;
 import com.amperas17.demo3.users.data.user.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -94,7 +92,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<TaskEntity> readAllTasks() {
+    public List<TaskEntity> getAllTasks() {
         List<TaskEntity> taskEntities = new ArrayList<>();
         for (TaskEntity taskEntity : taskRepository.findAll()) {
             taskEntities.add(taskEntity);
@@ -103,9 +101,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<TaskEntity> readAllUsersTasks(int userId) {
+    public List<TaskEntity> getAllUsersTasks(int userId) {
         UserCredsEntity userCredsEntity = userRepository.findByID(userId);
-        return new ArrayList<>(userCredsEntity.getTasks());
+        return userCredsEntity.getTasks().stream()
+                .sorted(Comparator.comparingLong(TaskEntity::getTimestamp))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<TaskEntity> getUsersTasksByDate(int userId, long timestamp) {
+        UserCredsEntity userCredsEntity = userRepository.findByID(userId);
+        return userCredsEntity.getTasks().stream()
+                .filter(taskEntity -> {
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTimeInMillis(timestamp);
+                    calendar.add(Calendar.DAY_OF_MONTH, 1);
+                    return taskEntity.getTimestamp() >= timestamp && taskEntity.getTimestamp() < calendar.getTimeInMillis();
+                })
+                .sorted(Comparator.comparingLong(TaskEntity::getTimestamp))
+                .collect(Collectors.toList());
     }
 
     @Override
