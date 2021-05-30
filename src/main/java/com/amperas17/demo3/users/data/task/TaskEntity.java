@@ -24,6 +24,22 @@ public class TaskEntity {
     @Column(name = "name")
     private String name;
 
+    @JsonProperty("status")
+    @Column(name = "status")
+    private String status;
+
+    @JsonProperty("priority")
+    @Column(name = "priority")
+    private boolean priority;
+
+    @JsonProperty("note")
+    @Column(name = "note")
+    private String note;
+
+    @JsonProperty("timestamp")
+    @Column(name = "timestamp")
+    private long timestamp;
+
     @JsonIgnore
     @ManyToMany(mappedBy = "tasks")
     private Set<UserCredsEntity> users;
@@ -77,5 +93,37 @@ public class TaskEntity {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public boolean isPriority() {
+        return priority;
+    }
+
+    public void setPriority(boolean priority) {
+        this.priority = priority;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 }

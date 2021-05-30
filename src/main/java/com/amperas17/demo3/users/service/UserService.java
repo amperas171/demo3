@@ -29,6 +29,8 @@ public interface UserService {
 
     List<TaskEntity> readAllTasks();
 
+    List<TaskEntity> readAllUsersTasks(int userId);
+
     void editTask(TaskEntity task);
 
     boolean deleteTask(int id);

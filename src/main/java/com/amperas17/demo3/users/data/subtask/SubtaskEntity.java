@@ -23,6 +23,10 @@ public class SubtaskEntity {
     @Column(name = "name")
     private String name;
 
+    @JsonProperty("status")
+    @Column(name = "status")
+    private String status;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "task_id")
     private TaskEntity task;
@@ -56,5 +60,21 @@ public class SubtaskEntity {
 
     public void setTaskEntity(TaskEntity taskEntity) {
         this.task = taskEntity;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public TaskEntity getTask() {
+        return task;
+    }
+
+    public void setTask(TaskEntity task) {
+        this.task = task;
     }
 }

@@ -103,6 +103,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<TaskEntity> readAllUsersTasks(int userId) {
+        UserCredsEntity userCredsEntity = userRepository.findByID(userId);
+        return new ArrayList<>(userCredsEntity.getTasks());
+    }
+
+    @Override
     public void editTask(TaskEntity task) {
         taskRepository.save(task);
     }
@@ -140,14 +146,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public void editSubtask(SubtaskEntity newSubtask) {
         subtaskRepository.updateNameByID(newSubtask.getId(), newSubtask.getName());
-        /*int subtaskId = newSubtask.getId();
-        SubtaskEntity oldSubtask = subtaskRepository.findByID(subtaskId);
-        int taskId = oldSubtask.getTaskEntity().getId();
-        TaskEntity taskEntity = taskRepository.findByID(taskId);
-        taskEntity.addSubtask(newSubtask);
-        newSubtask.setTaskEntity(taskEntity);
-        subtaskRepository.save(newSubtask);
-        taskRepository.save(taskEntity);*/
     }
 
     @Override

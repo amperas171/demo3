@@ -115,6 +115,11 @@ public class UserController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @GetMapping(value = "/users/{userId}/getTasks")
+    public List<TaskEntity> readAllUsersTasks(int userId) {
+        return userService.readAllUsersTasks(userId);
+    }
+
     @PostMapping(value = "/tasks/addSubtask/{id}")
     public ResponseEntity<?> addSubtask(@RequestBody SubtaskEntity subtaskEntity, @PathVariable(name = "id") int id) {
         userService.addSubtask(subtaskEntity, id);
