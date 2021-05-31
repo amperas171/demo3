@@ -12,8 +12,8 @@ public interface SubtaskRepository extends CrudRepository<SubtaskEntity, Integer
 
     @Transactional
     @Modifying
-    @Query("update SubtaskEntity s set s.name = ?2 where s.id = ?1")
-    void updateNameByID(int id, String name);
+    @Query("update SubtaskEntity s set s.name = ?2, s.status = ?3 where s.id = ?1")
+    void updateSubtaskByID(int id, String name, String status);
 
     @Transactional
     @Modifying
