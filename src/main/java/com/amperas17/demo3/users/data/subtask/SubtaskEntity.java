@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "subtasks")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "taskEntity"})
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "taskEntity"})
 public class SubtaskEntity {
 
     @Id
@@ -27,6 +27,7 @@ public class SubtaskEntity {
     @Column(name = "status")
     private String status;
 
+    @JsonIgnoreProperties("task")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "task_id")
     private TaskEntity task;
