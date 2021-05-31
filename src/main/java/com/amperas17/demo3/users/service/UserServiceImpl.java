@@ -9,7 +9,6 @@ import com.amperas17.demo3.users.data.user.UserCreds;
 import com.amperas17.demo3.users.data.user.UserCredsEntity;
 import com.amperas17.demo3.users.data.user.UserRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -169,7 +168,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean deleteSubtask(int id) {
-        subtaskRepository.deleteById(id);
+        subtaskRepository.deleteSubtaskByID(id);
         return subtaskRepository.findByID(id) == null;
     }
 }

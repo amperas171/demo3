@@ -153,7 +153,7 @@ public class UserController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @DeleteMapping(value = "/subtasks/delete/{id}")
+    @DeleteMapping(value = "/subtasks/{id}/delete")
     public ResponseEntity<?> deleteSubtask(@PathVariable(name = "id") int id) {
         final boolean deleted = userService.deleteSubtask(id);
 

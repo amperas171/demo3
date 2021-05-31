@@ -7,11 +7,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface SubtaskRepository extends CrudRepository<SubtaskEntity, Integer> {
 
-    @Query("select u from SubtaskEntity u where u.id = ?1")
+    @Query("select s from SubtaskEntity s where u.id = ?1")
     SubtaskEntity findByID(int id);
 
     @Transactional
     @Modifying
-    @Query("update SubtaskEntity u set u.name = ?2 where u.id = ?1")
+    @Query("update SubtaskEntity s set s.name = ?2 where s.id = ?1")
     void updateNameByID(int id, String name);
+
+    @Transactional
+    @Modifying
+    @Query("delete from SubtaskEntity s where s.id = ?1")
+    void deleteSubtaskByID(int id);
 }

@@ -10,7 +10,6 @@ public interface TaskRepository extends CrudRepository<TaskEntity, Integer> {
     @Query("select u from TaskEntity u where u.id = ?1")
     TaskEntity findByID(int id);
 
-
     @Transactional
     @Modifying
     @Query("delete from TaskEntity t where t.id = ?1")
