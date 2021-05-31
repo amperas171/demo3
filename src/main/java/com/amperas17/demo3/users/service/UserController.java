@@ -96,7 +96,7 @@ public class UserController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @DeleteMapping(value = "/tasks/delete/{id}")
+    @DeleteMapping(value = "/tasks/{id}/delete")
     public ResponseEntity<?> deleteTask(@PathVariable(name = "id") int id) {
         final boolean deleted = userService.deleteTask(id);
 
@@ -125,7 +125,7 @@ public class UserController {
         return userService.getUsersTasksByDate(userId, timestamp);
     }
 
-    @PostMapping(value = "/tasks/addSubtask/{id}")
+    @PostMapping(value = "/tasks/{id}/addSubtask")
     public ResponseEntity<?> addSubtask(@RequestBody SubtaskEntity subtaskEntity, @PathVariable(name = "id") int id) {
         userService.addSubtask(subtaskEntity, id);
 

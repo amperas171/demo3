@@ -46,7 +46,7 @@ public class TaskEntity {
     private Set<UserCredsEntity> users;
 
     @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnoreProperties("task")
+    //@JsonIgnoreProperties("task")
     private Set<SubtaskEntity> subtasks;
 
     public TaskEntity() {
