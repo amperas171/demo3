@@ -1,6 +1,7 @@
 package com.amperas17.demo3.users.data.subtask;
 
 import com.amperas17.demo3.users.data.task.TaskEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -27,10 +28,10 @@ public class SubtaskEntity {
     @Column(name = "status")
     private String status;
 
-    //@JsonIgnoreProperties("taskEntity")
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "task_id")
-    @JsonIgnoreProperties("subtasks")
+    //@JsonIgnoreProperties("subtasks")
     private TaskEntity task;
 
     public SubtaskEntity() {
