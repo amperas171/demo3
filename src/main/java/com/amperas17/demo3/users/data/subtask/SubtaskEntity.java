@@ -28,9 +28,9 @@ public class SubtaskEntity {
     private String status;
 
     //@JsonIgnoreProperties("taskEntity")
-    @JsonIgnoreProperties("subtasks")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "task_id")
+    @JsonIgnoreProperties("subtasks")
     private TaskEntity task;
 
     public SubtaskEntity() {
