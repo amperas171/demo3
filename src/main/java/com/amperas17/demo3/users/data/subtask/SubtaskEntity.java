@@ -28,7 +28,7 @@ public class SubtaskEntity {
     private String status;
 
     //@JsonIgnoreProperties("taskEntity")
-    @JsonIgnoreProperties("task_id")
+    @JsonIgnoreProperties("subtasks")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "task_id")
     private TaskEntity task;
