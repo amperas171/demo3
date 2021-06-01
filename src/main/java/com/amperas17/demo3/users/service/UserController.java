@@ -78,9 +78,9 @@ public class UserController {
                 : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }
 
-    @PostMapping(value = "/users/addTask/{id}")
-    public ResponseEntity<?> addTask(@RequestBody TaskEntity taskEntity, @PathVariable(name = "id") int id) {
-        userService.addTask(taskEntity, id);
+    @PostMapping(value = "/users/{userId}/addTask")
+    public ResponseEntity<?> addTaskToUser(@RequestBody TaskEntity taskEntity, @PathVariable(name = "userId") int userId) {
+        userService.addTask(taskEntity, userId);
 
         return taskEntity != null
                 ? new ResponseEntity<>(HttpStatus.OK)
@@ -118,11 +118,6 @@ public class UserController {
     @GetMapping(value = "/tasks/{id}/get")
     public ResponseEntity<TaskEntity> getTask(@PathVariable(name = "id") int id) {
         final TaskEntity task = userService.getTaskById(id);
-        for (UserCredsEntity user : task.getUsers()) {
-            user.setUuid(null);
-            user.setLogin(null);
-            user.setPassword(null);
-        }
 
         return task != null
                 ? new ResponseEntity<>(task, HttpStatus.OK)

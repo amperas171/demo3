@@ -1,10 +1,7 @@
 package com.amperas17.demo3.users.data.user;
 
 import com.amperas17.demo3.users.data.task.TaskEntity;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -33,15 +30,18 @@ public class UserCredsEntity {
     private Integer id = 0;
 
     //@Id
+    @JsonIgnore
     @JsonProperty("uuid")
     @Column(name = "uuid")
     //@GeneratedValue(strategy = GenerationType.AUTO)
     private UUID uuid;
 
+    @JsonIgnore
     @JsonProperty("login")
     @Column(name = "login", length = 25)
     private String login;
 
+    @JsonIgnore
     @JsonProperty("password")
     @Column(name = "password", length = 25)
     private String password;
