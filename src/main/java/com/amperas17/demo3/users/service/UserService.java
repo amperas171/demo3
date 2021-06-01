@@ -1,6 +1,7 @@
 package com.amperas17.demo3.users.service;
 
 import com.amperas17.demo3.users.data.subtask.SubtaskEntity;
+import com.amperas17.demo3.users.data.task.Task;
 import com.amperas17.demo3.users.data.task.TaskEntity;
 import com.amperas17.demo3.users.data.user.User;
 import com.amperas17.demo3.users.data.user.UserCreds;
@@ -30,13 +31,13 @@ public interface UserService {
     List<TaskEntity> getAllTasks();
 
     @Nullable
-    TaskEntity getTaskById(int taskId);
+    Task getTaskById(int taskId);
 
-    List<TaskEntity> getAllUsersTasks(int userId);
+    List<Task> getAllUsersTasks(int userId);
 
-    List<TaskEntity> getUsersTasksByDate(int userId, long timestamp);
+    List<Task> getUsersTasksByDate(int userId, long timestamp);
 
-    void editTask(TaskEntity task);
+    void editTask(Task task);
 
     boolean deleteTask(int id);
 

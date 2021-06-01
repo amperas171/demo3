@@ -1,13 +1,16 @@
 package com.amperas17.demo3.users.service;
 
+import com.amperas17.demo3.users.data.subtask.Subtask;
 import com.amperas17.demo3.users.data.subtask.SubtaskEntity;
 import com.amperas17.demo3.users.data.subtask.SubtaskRepository;
+import com.amperas17.demo3.users.data.task.Task;
 import com.amperas17.demo3.users.data.task.TaskEntity;
 import com.amperas17.demo3.users.data.task.TaskRepository;
 import com.amperas17.demo3.users.data.user.User;
 import com.amperas17.demo3.users.data.user.UserCreds;
 import com.amperas17.demo3.users.data.user.UserCredsEntity;
 import com.amperas17.demo3.users.data.user.UserRepository;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -101,22 +104,27 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public TaskEntity getTaskById(int taskId) {
-        return taskRepository.findByID(taskId);
+    public Task getTaskById(int taskId) {
+        return getTask(taskRepository.findByID(taskId));
     }
 
     @Override
-    public List<TaskEntity> getAllUsersTasks(int userId) {
+    public List<Task> getAllUsersTasks(int userId) {
         UserCredsEntity userCredsEntity = userRepository.findByID(userId);
-        return userCredsEntity.getTasks().stream()
+        List<TaskEntity> sorted = userCredsEntity.getTasks().stream()
                 .sorted(Comparator.comparingLong(TaskEntity::getTimestamp))
                 .collect(Collectors.toList());
+        List<Task> tasks = new ArrayList<>();
+        for (TaskEntity te: sorted) {
+            tasks.add(getTask(te));
+        }
+        return tasks;
     }
 
     @Override
-    public List<TaskEntity> getUsersTasksByDate(int userId, long timestamp) {
+    public List<Task> getUsersTasksByDate(int userId, long timestamp) {
         UserCredsEntity userCredsEntity = userRepository.findByID(userId);
-        return userCredsEntity.getTasks().stream()
+        List<TaskEntity> sorted = userCredsEntity.getTasks().stream()
                 .filter(taskEntity -> {
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTimeInMillis(timestamp);
@@ -125,19 +133,36 @@ public class UserServiceImpl implements UserService {
                 })
                 .sorted(Comparator.comparingLong(TaskEntity::getTimestamp))
                 .collect(Collectors.toList());
+        List<Task> tasks = new ArrayList<>();
+        for (TaskEntity te: sorted) {
+            tasks.add(getTask(te));
+        }
+        return tasks;
+    }
+
+    @Nullable
+    private Task getTask(@Nullable TaskEntity te) {
+        if (te == null) {
+            return null;
+        }
+        Set<User> users = new HashSet<>();
+        for (UserCredsEntity uce: te.getUsers()) {
+            users.add(new User(uce.getId(), uce.getName(), uce.getSurname(), uce.getEmail(), uce.getPhone()));
+        }
+        Set<Subtask> subtasks = new HashSet<>();
+        for (SubtaskEntity s: te.getSubtasks()) {
+            subtasks.add(new Subtask(s.getId(), s.getName(), s.getStatus()));
+        }
+        return new Task(te.getId(), te.getName(), te.getStatus(), te.isPriority(), te.getNote(), te.getTimestamp(), users, subtasks);
     }
 
     @Override
-    public void editTask(TaskEntity task) {
-        taskRepository.save(task);
+    public void editTask(Task task) {
+        //taskRepository.save(task);
     }
 
-    //@Transactional
     @Override
     public boolean deleteTask(int id) {
-        /*TaskEntity t = taskRepository.findByID(id);
-        t.getUsers().clear();
-        taskRepository.save(t);*/
         taskRepository.deleteTaskByID(id);
         return taskRepository.findByID(id) == null;
     }

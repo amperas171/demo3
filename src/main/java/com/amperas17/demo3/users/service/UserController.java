@@ -1,6 +1,7 @@
 package com.amperas17.demo3.users.service;
 
 import com.amperas17.demo3.users.data.subtask.SubtaskEntity;
+import com.amperas17.demo3.users.data.task.Task;
 import com.amperas17.demo3.users.data.task.TaskEntity;
 import com.amperas17.demo3.users.data.user.CurrentUser;
 import com.amperas17.demo3.users.data.user.User;
@@ -87,9 +88,10 @@ public class UserController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    // TODO
     @PutMapping(value = "/tasks/update")
     public ResponseEntity<?> updateTask(@RequestBody TaskEntity taskEntity) {
-        userService.editTask(taskEntity);
+        //userService.editTask(taskEntity);
 
         return taskEntity != null
                 ? new ResponseEntity<>(HttpStatus.OK)
@@ -116,8 +118,8 @@ public class UserController {
     }
 
     @GetMapping(value = "/tasks/{id}/get")
-    public ResponseEntity<TaskEntity> getTask(@PathVariable(name = "id") int id) {
-        final TaskEntity task = userService.getTaskById(id);
+    public ResponseEntity<Task> getTask(@PathVariable(name = "id") int id) {
+        final Task task = userService.getTaskById(id);
 
         return task != null
                 ? new ResponseEntity<>(task, HttpStatus.OK)
@@ -125,12 +127,12 @@ public class UserController {
     }
 
     @GetMapping(value = "/users/{userId}/getTasks")
-    public List<TaskEntity> getAllUsersTasks(@PathVariable(name = "userId") int userId) {
+    public List<Task> getAllUsersTasks(@PathVariable(name = "userId") int userId) {
         return userService.getAllUsersTasks(userId);
     }
 
     @GetMapping(value = "/users/{userId}/getTasks/{timestamp}")
-    public List<TaskEntity> getUsersTasksByDate(@PathVariable(name = "userId") int userId, @PathVariable(name = "timestamp") long timestamp) {
+    public List<Task> getUsersTasksByDate(@PathVariable(name = "userId") int userId, @PathVariable(name = "timestamp") long timestamp) {
         return userService.getUsersTasksByDate(userId, timestamp);
     }
 

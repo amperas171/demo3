@@ -30,18 +30,15 @@ public class UserCredsEntity {
     private Integer id = 0;
 
     //@Id
-    @JsonIgnore
     @JsonProperty("uuid")
     @Column(name = "uuid")
     //@GeneratedValue(strategy = GenerationType.AUTO)
     private UUID uuid;
 
-    @JsonIgnore
     @JsonProperty("login")
     @Column(name = "login", length = 25)
     private String login;
 
-    @JsonIgnore
     @JsonProperty("password")
     @Column(name = "password", length = 25)
     private String password;
