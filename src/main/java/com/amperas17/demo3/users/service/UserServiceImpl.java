@@ -162,11 +162,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void editTask(Task task) {
-        taskRepository.updateTaskByID(task.getId(), task.getName(), task.getStatus(), task.isPriority(), task.getNote(), task.getTimestamp());
-        TaskEntity te = taskRepository.findByID(task.getId());
-        te.setSubtasks(null);
-        te.setUsers(null);
-        taskRepository.save(te);
+        //taskRepository.updateTaskByID(task.getId(), task.getName(), task.getStatus(), task.isPriority(), task.getNote(), task.getTimestamp());
+        //TaskEntity te = taskRepository.findByID(task.getId());
+        //te.setSubtasks(null);
+        //te.setUsers(null);
+        //taskRepository.save(te);
+        taskRepository.deleteTaskByID(task.getId());
+        TaskEntity newTask = taskRepository.save(new TaskEntity(task.getName(), task.getStatus(), task.isPriority(), task.getNote(), task.getTimestamp()));
         if (task.getSubtasks() != null) {
             for (Subtask subtask : task.getSubtasks()) {
                 SubtaskEntity subtaskEntity;
@@ -175,12 +177,12 @@ public class UserServiceImpl implements UserService {
                 } else {
                     subtaskEntity = new SubtaskEntity(subtask.getName(), subtask.getStatus());
                 }
-                addSubtaskToTask(subtaskEntity, task.getId());
+                addSubtaskToTask(subtaskEntity, newTask.getId());
             }
         }
         if (task.getUsers() != null) {
             for (User user : task.getUsers()) {
-                addTaskToUser(task.getId(), user.getId());
+                addTaskToUser(newTask.getId(), user.getId());
             }
         }
     }

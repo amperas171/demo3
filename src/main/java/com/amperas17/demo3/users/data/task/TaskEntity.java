@@ -70,6 +70,14 @@ public class TaskEntity {
         this.timestamp = timestamp;
     }
 
+    public TaskEntity(String name, String status, boolean priority, String note, long timestamp) {
+        this.name = name;
+        this.status = status;
+        this.priority = priority;
+        this.note = note;
+        this.timestamp = timestamp;
+    }
+
     public String getName() {
         return name;
     }
