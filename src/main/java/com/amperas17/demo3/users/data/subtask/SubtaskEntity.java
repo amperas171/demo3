@@ -37,8 +37,15 @@ public class SubtaskEntity {
     public SubtaskEntity() {
     }
 
-    public SubtaskEntity(String name) {
+    public SubtaskEntity(int id, String name, String status) {
+        this.id = id;
         this.name = name;
+        this.status = status;
+    }
+
+    public SubtaskEntity(String name, String status) {
+        this.name = name;
+        this.status = status;
     }
 
     public String getName() {

@@ -88,12 +88,11 @@ public class UserController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    // TODO
     @PutMapping(value = "/tasks/update")
-    public ResponseEntity<?> updateTask(@RequestBody TaskEntity taskEntity) {
-        //userService.editTask(taskEntity);
+    public ResponseEntity<?> updateTask(@RequestBody Task task) {
+        userService.editTask(task);
 
-        return taskEntity != null
+        return task != null
                 ? new ResponseEntity<>(HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }

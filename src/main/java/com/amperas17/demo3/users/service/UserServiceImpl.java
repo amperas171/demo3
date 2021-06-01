@@ -158,7 +158,34 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void editTask(Task task) {
-        //taskRepository.save(task);
+        taskRepository.updateTaskByID(task.getId(), task.getName(), task.getStatus(), task.isPriority(), task.getNote(), task.getTimestamp());
+        for (Subtask subtask: task.getSubtasks()) {
+            if (subtask.getId() >= -1) {
+                SubtaskEntity subtaskEntity = new SubtaskEntity(subtask.getId(), subtask.getName(), subtask.getStatus());
+                editSubtask(subtaskEntity);
+            } else {
+                SubtaskEntity subtaskEntity = new SubtaskEntity(subtask.getName(), subtask.getStatus());
+                addSubtask(subtaskEntity, task.getId());
+            }
+        }
+        for (User user : task.getUsers()) {
+            addTaskToUser(task.getId(), user.getId());
+        }
+    }
+
+    public void addTaskToUser(int taskId, int userId) {
+        TaskEntity taskEntity = taskRepository.findByID(taskId);
+        UserCredsEntity uce = userRepository.findByID(userId);
+        HashSet<UserCredsEntity> usersSet = new HashSet<>();
+        usersSet.add(uce);
+        taskEntity.setUsers(usersSet);
+        if (uce.getTasks() == null) {
+            uce.setTasks(new HashSet<>());
+        }
+        uce.addTask(taskEntity);
+        taskEntity.getUsers().add(uce);
+        taskRepository.save(taskEntity);
+        userRepository.save(uce);
     }
 
     @Override
