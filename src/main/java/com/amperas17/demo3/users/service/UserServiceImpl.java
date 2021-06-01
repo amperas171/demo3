@@ -163,6 +163,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void editTask(Task task) {
         taskRepository.updateTaskByID(task.getId(), task.getName(), task.getStatus(), task.isPriority(), task.getNote(), task.getTimestamp());
+        TaskEntity te = taskRepository.findByID(task.getId());
+        te.setSubtasks(null);
+        te.setUsers(null);
+        taskRepository.save(te);
         if (task.getSubtasks() != null) {
             for (Subtask subtask : task.getSubtasks()) {
                 SubtaskEntity subtaskEntity;
@@ -187,10 +191,9 @@ public class UserServiceImpl implements UserService {
         HashSet<UserCredsEntity> usersSet = new HashSet<>();
         usersSet.add(uce);
         taskEntity.setUsers(usersSet);
-        /* if (uce.getTasks() == null) {
+        if (uce.getTasks() == null) {
             uce.setTasks(new HashSet<>());
-        }*/
-        uce.setTasks(new HashSet<>());
+        }
         uce.addTask(taskEntity);
         taskEntity.getUsers().add(uce);
         taskRepository.save(taskEntity);
