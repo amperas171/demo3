@@ -207,6 +207,7 @@ public class UserServiceImpl implements UserService {
         TaskEntity te = taskRepository.findByID(id);
         for (SubtaskEntity se : te.getSubtasks()) {
             se.setTaskEntity(null);
+            se.setTask(null);
         }
         taskRepository.deleteTaskByID(id);
         return taskRepository.findByID(id) == null;
