@@ -187,9 +187,10 @@ public class UserServiceImpl implements UserService {
         HashSet<UserCredsEntity> usersSet = new HashSet<>();
         usersSet.add(uce);
         taskEntity.setUsers(usersSet);
-        if (uce.getTasks() == null) {
+        /* if (uce.getTasks() == null) {
             uce.setTasks(new HashSet<>());
-        }
+        }*/
+        uce.setTasks(new HashSet<>());
         uce.addTask(taskEntity);
         taskEntity.getUsers().add(uce);
         taskRepository.save(taskEntity);
