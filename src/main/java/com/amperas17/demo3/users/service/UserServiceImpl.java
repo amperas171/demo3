@@ -204,6 +204,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean deleteTask(int id) {
+        TaskEntity te = taskRepository.findByID(id);
+        for (SubtaskEntity se : te.getSubtasks()) {
+            se.setTaskEntity(null);
+        }
         taskRepository.deleteTaskByID(id);
         return taskRepository.findByID(id) == null;
     }
