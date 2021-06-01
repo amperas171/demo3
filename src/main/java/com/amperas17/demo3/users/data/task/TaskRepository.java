@@ -12,7 +12,7 @@ public interface TaskRepository extends CrudRepository<TaskEntity, Integer> {
 
     @Transactional
     @Modifying
-    @Query("update TaskEntity t set t.name = ?2, t.status = ?3, t.priority = ?4, t.note = ?5, t.timestamp = ?5 where t.id = ?1")
+    @Query("update TaskEntity t set t.name = ?2, t.status = ?3, t.priority = ?4, t.note = ?5, t.timestamp = ?6 where t.id = ?1")
     void updateTaskByID(int id, String name, String status, boolean priority, String note, long timestamp);
 
     @Transactional
