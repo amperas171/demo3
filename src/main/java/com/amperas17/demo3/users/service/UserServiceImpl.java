@@ -146,12 +146,16 @@ public class UserServiceImpl implements UserService {
             return null;
         }
         Set<User> users = new HashSet<>();
-        for (UserCredsEntity uce: te.getUsers()) {
-            users.add(new User(uce.getId(), uce.getName(), uce.getSurname(), uce.getEmail(), uce.getPhone()));
+        if (te.getUsers() != null) {
+            for (UserCredsEntity uce : te.getUsers()) {
+                users.add(new User(uce.getId(), uce.getName(), uce.getSurname(), uce.getEmail(), uce.getPhone()));
+            }
         }
         Set<Subtask> subtasks = new HashSet<>();
-        for (SubtaskEntity s: te.getSubtasks()) {
-            subtasks.add(new Subtask(s.getId(), s.getName(), s.getStatus()));
+        if (te.getSubtasks() != null) {
+            for (SubtaskEntity s : te.getSubtasks()) {
+                subtasks.add(new Subtask(s.getId(), s.getName(), s.getStatus()));
+            }
         }
         return new Task(te.getId(), te.getName(), te.getStatus(), te.isPriority(), te.getNote(), te.getTimestamp(), users, subtasks);
     }
@@ -159,17 +163,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public void editTask(Task task) {
         taskRepository.updateTaskByID(task.getId(), task.getName(), task.getStatus(), task.isPriority(), task.getNote(), task.getTimestamp());
-        for (Subtask subtask: task.getSubtasks()) {
-            if (subtask.getId() >= -1) {
-                SubtaskEntity subtaskEntity = new SubtaskEntity(subtask.getId(), subtask.getName(), subtask.getStatus());
-                editSubtask(subtaskEntity);
-            } else {
-                SubtaskEntity subtaskEntity = new SubtaskEntity(subtask.getName(), subtask.getStatus());
-                addSubtask(subtaskEntity, task.getId());
+        if (task.getSubtasks() != null) {
+            for (Subtask subtask : task.getSubtasks()) {
+                if (subtask.getId() >= -1) {
+                    SubtaskEntity subtaskEntity = new SubtaskEntity(subtask.getId(), subtask.getName(), subtask.getStatus());
+                    editSubtask(subtaskEntity);
+                } else {
+                    SubtaskEntity subtaskEntity = new SubtaskEntity(subtask.getName(), subtask.getStatus());
+                    addSubtask(subtaskEntity, task.getId());
+                }
             }
         }
-        for (User user : task.getUsers()) {
-            addTaskToUser(task.getId(), user.getId());
+        if (task.getUsers() != null) {
+            for (User user : task.getUsers()) {
+                addTaskToUser(task.getId(), user.getId());
+            }
         }
     }
 
