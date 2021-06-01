@@ -135,9 +135,9 @@ public class UserController {
         return userService.getUsersTasksByDate(userId, timestamp);
     }
 
-    @PostMapping(value = "/tasks/{id}/addSubtask")
-    public ResponseEntity<?> addSubtask(@RequestBody SubtaskEntity subtaskEntity, @PathVariable(name = "id") int id) {
-        userService.addSubtask(subtaskEntity, id);
+    @PostMapping(value = "/tasks/{taskId}/addSubtask")
+    public ResponseEntity<?> addSubtaskToTask(@RequestBody SubtaskEntity subtaskEntity, @PathVariable(name = "taskId") int taskId) {
+        userService.addSubtaskToTask(subtaskEntity, taskId);
 
         return subtaskEntity != null
                 ? new ResponseEntity<>(HttpStatus.OK)

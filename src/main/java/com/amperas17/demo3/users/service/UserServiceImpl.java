@@ -165,12 +165,12 @@ public class UserServiceImpl implements UserService {
         taskRepository.updateTaskByID(task.getId(), task.getName(), task.getStatus(), task.isPriority(), task.getNote(), task.getTimestamp());
         if (task.getSubtasks() != null) {
             for (Subtask subtask : task.getSubtasks()) {
-                if (subtask.getId() >= -1) {
+                if (subtask.getId() > 0) {
                     SubtaskEntity subtaskEntity = new SubtaskEntity(subtask.getId(), subtask.getName(), subtask.getStatus());
                     editSubtask(subtaskEntity);
                 } else {
                     SubtaskEntity subtaskEntity = new SubtaskEntity(subtask.getName(), subtask.getStatus());
-                    addSubtask(subtaskEntity, task.getId());
+                    addSubtaskToTask(subtaskEntity, task.getId());
                 }
             }
         }
@@ -204,7 +204,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addSubtask(SubtaskEntity subtask, int taskId) {
+    public void addSubtaskToTask(SubtaskEntity subtask, int taskId) {
         SubtaskEntity subtaskEntity = subtaskRepository.save(subtask);
         TaskEntity taskEntity = taskRepository.findByID(taskId);
 

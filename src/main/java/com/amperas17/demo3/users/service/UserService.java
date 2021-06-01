@@ -41,7 +41,7 @@ public interface UserService {
 
     boolean deleteTask(int id);
 
-    void addSubtask(SubtaskEntity task, int taskId);
+    void addSubtaskToTask(SubtaskEntity task, int taskId);
 
     List<SubtaskEntity> readAllSubtasks();
 
