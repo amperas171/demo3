@@ -61,6 +61,15 @@ public class TaskEntity {
         this.users = users;
     }
 
+    public TaskEntity(int id, String name, String status, boolean priority, String note, long timestamp) {
+        this.id = id;
+        this.name = name;
+        this.status = status;
+        this.priority = priority;
+        this.note = note;
+        this.timestamp = timestamp;
+    }
+
     public String getName() {
         return name;
     }
