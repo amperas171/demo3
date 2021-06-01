@@ -101,6 +101,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public TaskEntity getTaskById(int taskId) {
+        return taskRepository.findByID(taskId);
+    }
+
+    @Override
     public List<TaskEntity> getAllUsersTasks(int userId) {
         UserCredsEntity userCredsEntity = userRepository.findByID(userId);
         return userCredsEntity.getTasks().stream()

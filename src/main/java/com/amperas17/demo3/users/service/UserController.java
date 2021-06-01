@@ -115,6 +115,15 @@ public class UserController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @GetMapping(value = "/tasks/{id}/get")
+    public ResponseEntity<TaskEntity> getTask(@PathVariable(name = "id") int id) {
+        final TaskEntity task = userService.getTaskById(id);
+
+        return task != null
+                ? new ResponseEntity<>(task, HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
     @GetMapping(value = "/users/{userId}/getTasks")
     public List<TaskEntity> getAllUsersTasks(@PathVariable(name = "userId") int userId) {
         return userService.getAllUsersTasks(userId);

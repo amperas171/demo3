@@ -29,6 +29,8 @@ public interface UserService {
 
     List<TaskEntity> getAllTasks();
 
+    TaskEntity getTaskById(int taskId);
+
     List<TaskEntity> getAllUsersTasks(int userId);
 
     List<TaskEntity> getUsersTasksByDate(int userId, long timestamp);
