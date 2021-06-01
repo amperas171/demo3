@@ -165,13 +165,13 @@ public class UserServiceImpl implements UserService {
         taskRepository.updateTaskByID(task.getId(), task.getName(), task.getStatus(), task.isPriority(), task.getNote(), task.getTimestamp());
         if (task.getSubtasks() != null) {
             for (Subtask subtask : task.getSubtasks()) {
+                SubtaskEntity subtaskEntity;
                 if (subtask.getId() > 0) {
-                    SubtaskEntity subtaskEntity = new SubtaskEntity(subtask.getId(), subtask.getName(), subtask.getStatus());
-                    editSubtask(subtaskEntity);
+                    subtaskEntity = new SubtaskEntity(subtask.getId(), subtask.getName(), subtask.getStatus());
                 } else {
-                    SubtaskEntity subtaskEntity = new SubtaskEntity(subtask.getName(), subtask.getStatus());
-                    addSubtaskToTask(subtaskEntity, task.getId());
+                    subtaskEntity = new SubtaskEntity(subtask.getName(), subtask.getStatus());
                 }
+                addSubtaskToTask(subtaskEntity, task.getId());
             }
         }
         if (task.getUsers() != null) {
