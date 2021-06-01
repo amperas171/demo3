@@ -209,7 +209,7 @@ public class UserServiceImpl implements UserService {
             se.setTaskEntity(null);
             se.setTask(null);
         }
-        taskRepository.deleteTaskByID(id);
+        //taskRepository.deleteTaskByID(id);
         return taskRepository.findByID(id) == null;
     }
 
