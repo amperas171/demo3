@@ -29,6 +29,7 @@ public interface UserService {
 
     List<TaskEntity> getAllTasks();
 
+    @Nullable
     TaskEntity getTaskById(int taskId);
 
     List<TaskEntity> getAllUsersTasks(int userId);

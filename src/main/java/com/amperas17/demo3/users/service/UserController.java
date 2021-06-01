@@ -118,6 +118,11 @@ public class UserController {
     @GetMapping(value = "/tasks/{id}/get")
     public ResponseEntity<TaskEntity> getTask(@PathVariable(name = "id") int id) {
         final TaskEntity task = userService.getTaskById(id);
+        for (UserCredsEntity user : task.getUsers()) {
+            user.setUuid(null);
+            user.setLogin(null);
+            user.setPassword(null);
+        }
 
         return task != null
                 ? new ResponseEntity<>(task, HttpStatus.OK)
