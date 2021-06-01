@@ -36,6 +36,9 @@ public class Task {
         this.timestamp = timestamp;
     }
 
+    public Task() {
+    }
+
     public int getId() {
         return id;
     }
