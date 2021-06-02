@@ -97,6 +97,15 @@ public class UserController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @PostMapping(value = "/users/{userId}/removeTask/{taskId}")
+    public ResponseEntity<?> removeTaskFromUserById(@PathVariable(name = "userId") int userId, @PathVariable(name = "taskId") int taskId) {
+        userService.removeTaskFromUserById(userId, taskId);
+
+        return taskId > 0
+                ? new ResponseEntity<>(HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
     @PostMapping(value = "/users/{userId}/addNewTask")
     public ResponseEntity<?> addNewTaskToUser(@RequestBody Task task, @PathVariable(name = "userId") int userId) {
         userService.addNewTaskToUser(task, userId);

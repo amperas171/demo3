@@ -30,6 +30,8 @@ public interface UserService {
 
     void addTaskToUserById(int userId, int taskId);
 
+    void removeTaskFromUserById(int userId, int taskId);
+
     void addNewTaskToUser(Task task, int userId);
 
     List<TaskEntity> getAllTasks();

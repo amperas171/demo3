@@ -127,6 +127,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void removeTaskFromUserById(int userId, int taskId) {
+        TaskEntity taskEntity = taskRepository.findByID(taskId);
+        UserCredsEntity uce = userRepository.findByID(userId);
+        if (taskEntity.getUsers() != null) {
+            taskEntity.getUsers().remove(uce);
+        }
+        if (uce.getTasks() != null) {
+            uce.getTasks().remove(taskEntity);
+        }
+        taskRepository.save(taskEntity);
+        userRepository.save(uce);
+    }
+
+    @Override
     public List<TaskEntity> getAllTasks() {
         List<TaskEntity> taskEntities = new ArrayList<>();
         for (TaskEntity taskEntity : taskRepository.findAll()) {
