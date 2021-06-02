@@ -216,7 +216,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void editTask(Task task) {
+    public void updateTask(Task task) {
         taskRepository.updateTaskByID(task.getId(), task.getName(), task.getStatus(), task.isPriority(), task.getNote(), task.getTimestamp());
         TaskEntity newTaskEntity = taskRepository.findByID(task.getId());
         if (newTaskEntity.getSubtasks() != null) {
@@ -228,7 +228,7 @@ public class UserServiceImpl implements UserService {
             for (Subtask subtask : task.getSubtasks()) {
                 SubtaskEntity subtaskEntity = new SubtaskEntity(subtask.getName(), subtask.getStatus());;
                 if (subtask.getId() > 0) {
-                    subtaskEntity.setId(subtask.getId());
+                    //subtaskEntity.setId(subtask.getId());
                 }
                 addSubtaskToTask(subtaskEntity, newTaskEntity.getId());
             }

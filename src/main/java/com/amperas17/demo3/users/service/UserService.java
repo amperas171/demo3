@@ -43,7 +43,7 @@ public interface UserService {
 
     List<Task> getUsersTasksByDate(int userId, long timestamp);
 
-    void editTask(Task task);
+    void updateTask(Task task);
 
     boolean deleteTask(int id);
 

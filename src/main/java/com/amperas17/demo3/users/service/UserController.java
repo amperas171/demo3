@@ -117,7 +117,7 @@ public class UserController {
 
     @PutMapping(value = "/tasks/update")
     public ResponseEntity<?> updateTask(@RequestBody Task task) {
-        userService.editTask(task);
+        userService.updateTask(task);
 
         return task != null
                 ? new ResponseEntity<>(HttpStatus.OK)
