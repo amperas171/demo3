@@ -162,13 +162,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void editTask(Task task) {
-        //taskRepository.updateTaskByID(task.getId(), task.getName(), task.getStatus(), task.isPriority(), task.getNote(), task.getTimestamp());
-        //TaskEntity te = taskRepository.findByID(task.getId());
-        //te.setSubtasks(null);
-        //te.setUsers(null);
-        //taskRepository.save(te);
-        taskRepository.deleteTaskByID(task.getId());
-        TaskEntity newTask = taskRepository.save(new TaskEntity(task.getName(), task.getStatus(), task.isPriority(), task.getNote(), task.getTimestamp()));
+        taskRepository.updateTaskByID(task.getId(), task.getName(), task.getStatus(), task.isPriority(), task.getNote(), task.getTimestamp());
+        TaskEntity newTaskEntity = taskRepository.findByID(task.getId());
+        if (newTaskEntity.getSubtasks() != null) {
+            for (SubtaskEntity se : newTaskEntity.getSubtasks()) {
+                subtaskRepository.deleteSubtaskByID(se.getId());
+            }
+        }
         if (task.getSubtasks() != null) {
             for (Subtask subtask : task.getSubtasks()) {
                 SubtaskEntity subtaskEntity;
@@ -177,12 +177,12 @@ public class UserServiceImpl implements UserService {
                 } else {
                     subtaskEntity = new SubtaskEntity(subtask.getName(), subtask.getStatus());
                 }
-                addSubtaskToTask(subtaskEntity, newTask.getId());
+                addSubtaskToTask(subtaskEntity, newTaskEntity.getId());
             }
         }
         if (task.getUsers() != null) {
             for (User user : task.getUsers()) {
-                addTaskToUser(newTask.getId(), user.getId());
+                addTaskToUser(newTaskEntity.getId(), user.getId());
             }
         }
     }
@@ -207,9 +207,6 @@ public class UserServiceImpl implements UserService {
         TaskEntity te = taskRepository.findByID(id);
         for (SubtaskEntity se : te.getSubtasks()) {
             subtaskRepository.deleteSubtaskByID(se.getId());
-            //se.setTaskEntity(null);
-            //se.setTask(null);
-            //subtaskRepository.save(se);
         }
         taskRepository.deleteTaskByID(id);
         return taskRepository.findByID(id) == null;
