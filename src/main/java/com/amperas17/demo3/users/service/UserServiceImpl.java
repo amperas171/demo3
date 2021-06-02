@@ -97,6 +97,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public void addNewTaskToUser(Task task, int userId) {
         TaskEntity taskEntity = taskRepository.save(new TaskEntity(task.getName(), task.getStatus(), task.isPriority(), task.getNote(), task.getTimestamp()));
+        if (task.getSubtasks() != null) {
+            for (Subtask subtask : task.getSubtasks()) {
+                SubtaskEntity subtaskEntity = new SubtaskEntity(subtask.getName(), subtask.getStatus());;
+                if (subtask.getId() > 0) {
+                    subtaskEntity.setId(subtask.getId());
+                }
+                addSubtaskToTask(subtaskEntity, taskEntity.getId());
+            }
+        }
         UserCredsEntity uce = userRepository.findByID(userId);
         HashSet<UserCredsEntity> usersSet = new HashSet<>();
         usersSet.add(uce);
