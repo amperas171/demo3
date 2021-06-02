@@ -26,7 +26,11 @@ public interface UserService {
 
     boolean delete(UUID uuid);
 
-    void addTask(TaskEntity task, int userId);
+    //void addTaskToUser(TaskEntity task, int userId);
+
+    void addTaskToUserById(int userId, int taskId);
+
+    void addNewTaskToUser(Task task, int userId);
 
     List<TaskEntity> getAllTasks();
 

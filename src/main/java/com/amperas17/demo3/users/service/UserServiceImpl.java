@@ -78,9 +78,41 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByUUID(uuid).isEmpty();
     }
 
-    @Override
-    public void addTask(TaskEntity task, int userId) {
+    /*@Override
+    public void addTaskToUser(TaskEntity task, int userId) {
         TaskEntity taskEntity = taskRepository.save(task);
+        UserCredsEntity uce = userRepository.findByID(userId);
+        HashSet<UserCredsEntity> usersSet = new HashSet<>();
+        usersSet.add(uce);
+        taskEntity.setUsers(usersSet);
+        if (uce.getTasks() == null) {
+            uce.setTasks(new HashSet<>());
+        }
+        uce.addTask(taskEntity);
+        taskEntity.getUsers().add(uce);
+        taskRepository.save(taskEntity);
+        userRepository.save(uce);
+    }*/
+
+    @Override
+    public void addNewTaskToUser(Task task, int userId) {
+        TaskEntity taskEntity = taskRepository.save(new TaskEntity(task.getName(), task.getStatus(), task.isPriority(), task.getNote(), task.getTimestamp()));
+        UserCredsEntity uce = userRepository.findByID(userId);
+        HashSet<UserCredsEntity> usersSet = new HashSet<>();
+        usersSet.add(uce);
+        taskEntity.setUsers(usersSet);
+        if (uce.getTasks() == null) {
+            uce.setTasks(new HashSet<>());
+        }
+        uce.addTask(taskEntity);
+        taskEntity.getUsers().add(uce);
+        taskRepository.save(taskEntity);
+        userRepository.save(uce);
+    }
+
+    @Override
+    public void addTaskToUserById(int userId, int taskId) {
+        TaskEntity taskEntity = taskRepository.findByID(taskId);
         UserCredsEntity uce = userRepository.findByID(userId);
         HashSet<UserCredsEntity> usersSet = new HashSet<>();
         usersSet.add(uce);
@@ -171,35 +203,13 @@ public class UserServiceImpl implements UserService {
         }
         if (task.getSubtasks() != null) {
             for (Subtask subtask : task.getSubtasks()) {
-                SubtaskEntity subtaskEntity;
+                SubtaskEntity subtaskEntity = new SubtaskEntity(subtask.getName(), subtask.getStatus());;
                 if (subtask.getId() > 0) {
-                    subtaskEntity = new SubtaskEntity(subtask.getId(), subtask.getName(), subtask.getStatus());
-                } else {
-                    subtaskEntity = new SubtaskEntity(subtask.getName(), subtask.getStatus());
+                    subtaskEntity.setId(subtask.getId());
                 }
                 addSubtaskToTask(subtaskEntity, newTaskEntity.getId());
             }
         }
-        if (task.getUsers() != null) {
-            for (User user : task.getUsers()) {
-                addTaskToUser(newTaskEntity.getId(), user.getId());
-            }
-        }
-    }
-
-    public void addTaskToUser(int taskId, int userId) {
-        TaskEntity taskEntity = taskRepository.findByID(taskId);
-        UserCredsEntity uce = userRepository.findByID(userId);
-        HashSet<UserCredsEntity> usersSet = new HashSet<>();
-        usersSet.add(uce);
-        taskEntity.setUsers(usersSet);
-        if (uce.getTasks() == null) {
-            uce.setTasks(new HashSet<>());
-        }
-        uce.addTask(taskEntity);
-        taskEntity.getUsers().add(uce);
-        taskRepository.save(taskEntity);
-        userRepository.save(uce);
     }
 
     @Override

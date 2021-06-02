@@ -79,11 +79,29 @@ public class UserController {
                 : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }
 
-    @PostMapping(value = "/users/{userId}/addTask")
+    /*@PostMapping(value = "/users/{userId}/addTask")
     public ResponseEntity<?> addTaskToUser(@RequestBody TaskEntity taskEntity, @PathVariable(name = "userId") int userId) {
-        userService.addTask(taskEntity, userId);
+        userService.addTaskToUser(taskEntity, userId);
 
         return taskEntity != null
+                ? new ResponseEntity<>(HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }*/
+
+    @PostMapping(value = "/users/{userId}/addTask/{taskId}")
+    public ResponseEntity<?> addTaskToUserById(@PathVariable(name = "userId") int userId, @PathVariable(name = "taskId") int taskId) {
+        userService.addTaskToUserById(userId, taskId);
+
+        return taskId > 0
+                ? new ResponseEntity<>(HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @PostMapping(value = "/users/{userId}/addNewTask")
+    public ResponseEntity<?> addNewTaskToUser(@RequestBody Task task, @PathVariable(name = "userId") int userId) {
+        userService.addNewTaskToUser(task, userId);
+
+        return task != null
                 ? new ResponseEntity<>(HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
