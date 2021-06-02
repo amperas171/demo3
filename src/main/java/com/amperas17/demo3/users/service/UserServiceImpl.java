@@ -227,9 +227,9 @@ public class UserServiceImpl implements UserService {
         if (task.getSubtasks() != null) {
             for (Subtask subtask : task.getSubtasks()) {
                 SubtaskEntity subtaskEntity = new SubtaskEntity(subtask.getName(), subtask.getStatus());;
-                if (subtask.getId() > 0) {
+                //if (subtask.getId() > 0) {
                     //subtaskEntity.setId(subtask.getId());
-                }
+                //}
                 addSubtaskToTask(subtaskEntity, newTaskEntity.getId());
             }
         }

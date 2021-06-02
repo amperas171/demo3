@@ -88,7 +88,7 @@ public class UserController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }*/
 
-    @PostMapping(value = "/users/{userId}/addTask/{taskId}")
+    @GetMapping(value = "/users/{userId}/addTask/{taskId}")
     public ResponseEntity<?> addTaskToUserById(@PathVariable(name = "userId") int userId, @PathVariable(name = "taskId") int taskId) {
         userService.addTaskToUserById(userId, taskId);
 
@@ -97,7 +97,7 @@ public class UserController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping(value = "/users/{userId}/removeTask/{taskId}")
+    @GetMapping(value = "/users/{userId}/removeTask/{taskId}")
     public ResponseEntity<?> removeTaskFromUserById(@PathVariable(name = "userId") int userId, @PathVariable(name = "taskId") int taskId) {
         userService.removeTaskFromUserById(userId, taskId);
 
