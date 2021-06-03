@@ -52,6 +52,15 @@ public class UserController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @GetMapping(value = "/users/{id}/getAllOtherByQuery/{query}")
+    public ResponseEntity<List<User>> getAllExceptCurrentByQuery(@PathVariable(name = "id") int id, @PathVariable(name = "query") String query) {
+        final List<User> users = userService.getAllExceptCurrentByQuery(id, query);
+
+        return users != null && !users.isEmpty()
+                ? new ResponseEntity<>(users, HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
     @PostMapping(value = "/users/login")
     public ResponseEntity<CurrentUser> login(@RequestBody UserCreds userCreds) {
         final UserCredsEntity uce = userService.findByCreds(userCreds);

@@ -59,6 +59,16 @@ public class UserServiceImpl implements UserService {
         return users;
     }
 
+
+    @Override
+    public List<User> getAllExceptCurrentByQuery(int id, String query) {
+        List<User> users = new ArrayList<>();
+        for (UserCredsEntity uce : userRepository.getAllExceptCurrentByQuery(id, query)) {
+            users.add(new User(uce.getId(), uce.getName(), uce.getSurname(), uce.getEmail(), uce.getPhone()));
+        }
+        return users;
+    }
+
     @Override
     public UserCredsEntity findByCreds(UserCreds userCreds) {
         List<UserCredsEntity> userCredsEntities = userRepository.findByCreds(userCreds.getLogin(), userCreds.getPassword());

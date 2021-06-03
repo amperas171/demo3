@@ -19,6 +19,8 @@ public interface UserService {
 
     List<User> getAllExceptCurrent(int id);
 
+    List<User> getAllExceptCurrentByQuery(int id, String query);
+
     @Nullable
     UserCredsEntity findByCreds(UserCreds userCreds);
 
