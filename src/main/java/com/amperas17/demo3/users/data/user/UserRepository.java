@@ -19,7 +19,10 @@ public interface UserRepository extends CrudRepository<UserCredsEntity, Integer>
     @Query("select u from UserCredsEntity u where u.id != ?1")
     List<UserCredsEntity> getAllExceptCurrent(int id);
 
-    @Query("select u from UserCredsEntity u where u.id != ?1 AND position(?2 in u.name)>0")
+    //@Query("select u from UserCredsEntity u where u.id != ?1 AND position(?2 in u.name)>0")
+    //List<UserCredsEntity> getAllExceptCurrentByQuery(int id, String query);
+
+    @Query("select u from UserCredsEntity u where u.id != ?1 AND to_tsvecor(u.name) @@ plainto_tsquery(query)")
     List<UserCredsEntity> getAllExceptCurrentByQuery(int id, String query);
 
     @Transactional
